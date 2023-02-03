@@ -6,7 +6,7 @@
             <p>"{{ quote.text }}"</p>
         </blockquote>
         <figcaption class="blockquote-footer mb-0">
-            <h5> By <cite><a href="" class="link-info">{{ quote.author.fullname }}</a></cite></h5>
+            <h5> By <cite><a href="{% url 'quote_site:author_detail' quote.author.id %}" class="link-info">{{ quote.author.fullname }}</a></cite></h5>
         </figcaption>
         <br>
         <h5>Tags: 
