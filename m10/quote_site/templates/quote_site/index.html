@@ -1,0 +1,17 @@
+{% extends 'quote_site/base.html' %}
+
+{% block body %}
+<h1>Quotes</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% for quote in quotes %}
+                {% include "quote_site/includes/quote.html"%}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

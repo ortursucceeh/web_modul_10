@@ -3,27 +3,27 @@ from django.db import models
 # Create your models here.
 
 class Author(models.Model):
-    fullname = models.CharField(max_length=200)
+    fullname = models.CharField(max_length=200, null=False, unique=True)
     borndate = models.DateField()
-    born_location = models.CharField(max_length=200)
+    born_location = models.CharField(max_length=200, null=False)
     description = models.TextField()
 
     def __str__(self):
         return self.fullname
 
 class Tag(models.Model):
-    caption = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, null=False, unique=True)
 
     def __str__(self):
-        return self.caption
+        return self.name
 
 class Quote(models.Model):
-    text = models.TextField()
+    text = models.TextField(null=False)
     tags = models.ManyToManyField(Tag)
 
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, null=True, related_name="quotes")
     
     def __str__(self):
-        return f"{self.author.fullname} {self.text[:20]}"
+        return f"{self.author.fullname}: '{self.text[:30]}...'"
 
