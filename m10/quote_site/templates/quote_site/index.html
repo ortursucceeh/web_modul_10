@@ -8,7 +8,7 @@
             <form class="card card-sm">
                 <div class="card-body row no-gutters align-items-center">
                     <div class="col">
-                        <input type="search" name="tag_name" placeholder="Search for tag" class="form-control form-control-borderless">
+                        <input type="search" name="tag_name" placeholder="Search for tag" class="form-control form-control">
                     </div>
                     <div class="col-auto">
                         <button class="btn btn-warning" type="submit">Search</button>
@@ -18,6 +18,7 @@
         </div>
     </div>
 <br>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -28,5 +29,27 @@
     </div>
 </div>
 
+<div class="row d-flex align-items-center">
+    <div class="col-md-3 offset-md-4">
+        <ul class="pagination">
+            {% if quotes.has_previous %}
+                <li class="page-item">
+                    <a class="page-link page-link-warning" href="?page={{ quotes.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ quotes.number }}">Current</a>
+            </li>
+
+                
+            {% if quotes.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ quotes.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
 
 {% endblock body %}

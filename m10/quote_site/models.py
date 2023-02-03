@@ -19,7 +19,7 @@ class Tag(models.Model):
 
 class Quote(models.Model):
     text = models.TextField(null=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='tags')
 
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, null=True, related_name="quotes")
