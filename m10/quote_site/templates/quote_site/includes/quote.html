@@ -11,7 +11,7 @@
         <br>
         <h5>Tags: 
             {% for tag in quote.tags.all %}
-                <button id="t{{tag.id}}" type="submit" class="btn btn-primary btn-sm" name="tag_name" href="{{ tag.id }}">{{ tag }}</button>
+                <a type="submit" class="btn btn-primary btn-sm" name="tag_name" href="?tag_name={{ tag.name }}">{{ tag }}</a>
             {% endfor %}
         </h5>
     </figure>

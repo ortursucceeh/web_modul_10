@@ -1,6 +1,7 @@
 {% extends 'quote_site/base.html' %}
 
 {% block body %}
+
 <br>
 <div class="container">
     <div class="row">
@@ -21,16 +22,20 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             {% for quote in quotes %}
-                {% include "quote_site/includes/quote.html"%}
+                {% include "quote_site/includes/quote.html" %}
             {% endfor %}
+        </div>
+        
+        <div class="col-md-2">
+            {% include "quote_site/includes/top_tags.html" %}
         </div>
     </div>
 </div>
 
 <div class="row d-flex align-items-center">
-    <div class="col-md-3 offset-md-4">
+    <div class="col-md-4 offset-md-4">
         <ul class="pagination">
             {% if quotes.has_previous %}
                 <li class="page-item">

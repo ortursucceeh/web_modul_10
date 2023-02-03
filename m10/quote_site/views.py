@@ -5,7 +5,9 @@ import quote_site
 # Create your views here.
 def index(request):
     quotes = Quote.objects.all()
-    
+    tags = Tag.objects.all()
+    topTenTags: list = sorted(tags, key=lambda tag: (tag.quotes.all().count(), tag.name), reverse=True)
+
     tag_name = request.GET.get('tag_name')
     if tag_name:
         try:
@@ -18,7 +20,7 @@ def index(request):
     page = request.GET.get('page')
     quotes = paginator.get_page(page)
 
-    return render(request, "quote_site/index.html", {"quotes": quotes})
+    return render(request, "quote_site/index.html", {"quotes": quotes, "topTenTags": topTenTags})
 
 def author_detail(request, id):
     author = Author.objects.get(pk=id)

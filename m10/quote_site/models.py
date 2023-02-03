@@ -19,7 +19,7 @@ class Tag(models.Model):
 
 class Quote(models.Model):
     text = models.TextField(null=False)
-    tags = models.ManyToManyField(Tag, related_name='tags')
+    tags = models.ManyToManyField(Tag, related_name='quotes')
 
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, null=True, related_name="quotes")
@@ -27,3 +27,5 @@ class Quote(models.Model):
     def __str__(self):
         return f"{self.author.fullname}: '{self.text[:30]}...'"
 
+    def __len__(self):
+        return len(self.author)
