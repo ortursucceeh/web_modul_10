@@ -4,9 +4,9 @@ from django.db import models
 
 class Author(models.Model):
     fullname = models.CharField(max_length=200, null=False, unique=True)
-    borndate = models.DateField()
+    born_date = models.DateField(null=False)
     born_location = models.CharField(max_length=200, null=False)
-    description = models.TextField()
+    description = models.TextField(null=False)
 
     def __str__(self):
         return self.fullname
@@ -27,5 +27,3 @@ class Quote(models.Model):
     def __str__(self):
         return f"{self.author.fullname}: '{self.text[:30]}...'"
 
-    def __len__(self):
-        return len(self.author)

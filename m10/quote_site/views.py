@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from .models import Quote, Tag, Author
+from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
+
 import quote_site
+from .forms import AuthorForm, QuoteForm
+from .models import Quote, Tag, Author
+
 # Create your views here.
 def index(request):
     quotes = Quote.objects.all()
@@ -27,9 +30,26 @@ def author_detail(request, id):
 
     return render(request, "quote_site/author_detail.html", {"author": author})
 
+def add_author(request):
+    if request.method == "POST":
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quote_site:index')
+
+        return render(request, 'quote_site/add_author.html', {'form': form})
+
+    return render(request, "quote_site/add_author.html", {'form': AuthorForm()})
 
 def add_quote(request):
-    return render(request, "quote_site/add_quote.html")
 
-def add_author(request):
-    return render(request, "quote_site/add_quote.html")
+    if request.method == "POST":
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quote_site:index')
+
+        return render(request, 'quote_site/add_quote.html', {'form': form})
+
+    return render(request, "quote_site/add_quote.html", {'form': QuoteForm()})
+
