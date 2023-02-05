@@ -15,8 +15,8 @@ class AuthorForm(forms.ModelForm):
 
 class QuoteForm(forms.ModelForm):
     text = forms.CharField(required=True, widget=forms.TextInput(attrs={"class": "form-control"}))
-    author = forms.ModelChoiceField(queryset=Author.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.SelectMultiple(attrs={"class": "form-select", "size": "7"}))
+    author = forms.ModelChoiceField(queryset=Author.objects.all().order_by('fullname'), widget=forms.Select(attrs={"class": "form-select"}))
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all().order_by('name'), widget=forms.SelectMultiple(attrs={"class": "form-select", "size": "7"}))
 
     class Meta:
         model = Quote
