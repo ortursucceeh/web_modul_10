@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 from .forms import AuthorForm, QuoteForm
 from .models import Quote, Tag, Author
 
@@ -35,6 +35,7 @@ def author_detail(request, id):
 
     return render(request, "quote_site/author_detail.html", {"author": author})
 
+@login_required
 def add_author(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
@@ -46,6 +47,7 @@ def add_author(request):
 
     return render(request, "quote_site/add_author.html", {'form': AuthorForm()})
 
+@login_required
 def add_quote(request):
     if request.method == "POST":
         form = QuoteForm(request.POST)
