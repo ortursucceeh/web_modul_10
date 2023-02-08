@@ -12,7 +12,7 @@ def get_top10tags():
     return topTenTags
 
 def index(request):
-    quotes = Quote.objects.all()
+    quotes = Quote.objects.all().order_by("-id")
     tags = Tag.objects.all()
     topTenTags = get_top10tags()
 
