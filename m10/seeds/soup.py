@@ -67,14 +67,18 @@ def get_authors(urls: Set[str]):
     return authors
 
 def store_in_json(filename: str, data: List[dict]):
-    with open(f'beautiful_soup/json_data/{filename}', 'w', encoding='utf-8') as file:
+    with open(f'json_data/{filename}', 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False)
 
 
-if __name__ == '__main__':
+def parse_and_store_data():
     quotes = get_quotes()
     urls = get_url_authors()
     authors = get_authors(urls)
     store_in_json('authors.json', authors)
     store_in_json('quotes.json', quotes)
+
+
+if __name__ == '__main__':
+    parse_and_store_data()
 

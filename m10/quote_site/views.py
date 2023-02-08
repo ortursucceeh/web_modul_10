@@ -1,8 +1,15 @@
+import json
+
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+
+
 from .forms import AuthorForm, QuoteForm
 from .models import Quote, Tag, Author
+from seeds.soup import parse_and_store_data
+from seeds.get_data_from_json import get_authors, get_quotes, get_tags
+
 
 
 # Create your views here.
@@ -11,7 +18,28 @@ def get_top10tags():
     topTenTags: list = sorted(tags, key=lambda tag: (tag.quotes.all().count(), tag.name), reverse=True)[:10]
     return topTenTags
 
+def insert_into_db():
+    parse_and_store_data()
+    tags: list[str] = get_tags()
+    authors: list[dict] = get_authors()
+    quotes: list[dict] = get_quotes()
+
+    for tag_name in tags:
+        new_tag = Tag(name=tag_name)
+        new_tag.save()
+
+    for author in authors:
+        new_author = Author(fullname=author['fullname'],
+                            born_date=author['born_date'],
+                            born_location=author['born_location'],
+                            description=author['description'])
+        new_author.save()
+
+ 
 def index(request):
+    if request.method == "POST":
+        insert_into_db()
+
     quotes = Quote.objects.all().order_by("-id")
     tags = Tag.objects.all()
     topTenTags = get_top10tags()
